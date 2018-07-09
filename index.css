@@ -1,0 +1,98 @@
+body{
+  background-image: url('https://i.imgur.com/wyHF3dJ.jpg');
+  background-size: 1920px 1280px;
+}
+ol {
+  color:blue;
+  }
+#teste {
+  color:rgba(255,0,0,0.7);
+  }
+.dinamarca {
+  background-color:rgb(0,145,0);
+  border: 2px solid saddlebrown;
+  padding: 10px;
+  margin: 15px;
+  }
+h1.cabecalho {
+  border: 5px solid purple;
+  width: 430px;
+  margin: auto;
+}
+#YT:link {
+  color:white;
+  text-decoration: none;
+}
+#YT:visited {
+  color:red;
+  text-decoration: none;
+}
+#YT:hover {
+  color:black;
+  text-decoration: underline;
+}
+#YT:active {
+  color:yellow;
+  text-decoration: none;
+}
+#Imgur:link{
+  color:blue;
+  text-decoration: none;
+}
+#Imgur:visited{
+  color:rgb(102, 97, 97);
+  text-decoration: none;
+}
+#Imgur:hover{
+  color:yellowgreen;
+  text-decoration: underline;
+}
+#Imgur:active{
+  color:lightgreen;
+  text-decoration: none;
+}
+#Reddit:link{
+  color:white;
+  text-decoration: none;
+}
+#Reddit:visited{
+  color:orange;
+  text-decoration: none;
+}
+#Reddit:hover{
+  color:lightcoral;
+  text-decoration: underline;
+}
+#Reddit:active{
+  color:blue;
+  text-decoration: none;
+}
+#pallete{
+  font-family: 'Bree Serif', serif;
+  font-size: 150%;
+  text-align: center;
+}
+.tabela {
+  background-color: black;
+  height: 300px;
+  width: 150px;
+  border: 6px solid whitesmoke;
+}
+#artable{
+  margin:auto;
+}
+#cor1{
+  background-color:#FFFFFF;
+}
+#cor2{
+  background-color:#00171F;
+}
+#cor3{
+  background-color:#003459;
+}
+#cor4{
+  background-color:#007EA7;
+}
+#cor5{
+  background-color:#00A8E8;
+}
