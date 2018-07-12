@@ -1,28 +1,18 @@
 
-Highcharts.chart('quinzenal', {
+Highcharts.chart('ultimosdez', {
   chart: {
     type: 'column'
   },
   title: {
-    text: 'Report de chamados'
-  },
-  subtitle: {
-    text: 'Fonte: Service Center'
+    text: 'Últimos dez dias'
   },
   xAxis: {
     categories: [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'May',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec'
+      'Minha Loja',
+      'Minhas Oportunidades',
+      'MIS Varejo',
+      'Satisfação - Minha Loja',
+      'Santander GO'
     ],
     crosshair: true
   },
@@ -48,19 +38,11 @@ Highcharts.chart('quinzenal', {
   },
   series: [{
     name: 'Abertos',
-    data: [10, 22, 13, 24, 5, 11, 16, 14, 3, 2, 14, 28]
+    data: [8, 5, 6, 11, 4]
 
   }, {
     name: 'Fechados',
-    data: [8, 23, 15, 17, 8, 13, 20, 16, 9, 6, 16, 20]
-
-  }, {
-    name: 'Em aberto',
-    data: [5, 8, 7, 5, 11, 13, 3, 1, 2, 10, 12, 5]
-
-  }, {
-    name: 'Atrasados',
-    data: [2, 1, 0, 3, 5, 4, 0, 2, 6, 0, 4, 2]
+    data: [5, 10, 7, 5, 9]
 
   }]
 });

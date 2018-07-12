@@ -7,7 +7,7 @@ Highcharts.chart('piechart', {
     type: 'pie'
   },
   title: {
-    text: 'Abertos por fila'
+    text: 'Em aberto por fila - Dia vigente'
   },
   tooltip: {
     pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
@@ -34,20 +34,17 @@ Highcharts.chart('piechart', {
       sliced: true,
       selected: true
     }, {
-      name: 'Portal Certo',
-      y: 10
-    }, {
-      name: 'Relatórios',
+      name: 'Minhas Oportunidades',
       y: 10
     }, {
       name: 'MIS Varejo',
-      y: 5
+      y: 10
+    }, {
+      name: 'Satisfação - Minha Loja',
+      y: 10
     }, {
       name: 'Santander GO',
       y: 10
-    }, {
-      name: 'Satisfação Usuário',
-      y: 5
     // }, {
     //   name: 'Opera',
     //   y: 1.6
