@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      button {
+        background: #ddd;
+        padding: 8px 15px;
+      }
+
+      button:focus {
+        background: #fff0f0;
+        border: 1px solid #db2323;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>JS: eventos</h1>
+
+    <button id="btn1">Click ou Barra de Espaço</button>
+    <button id="btn2">Click</button>
+    <button id="btn3">MouseEnter ou Barra de Espaço</button>
+    <button id="btn4">Shift</button>
+
+    <script>
+      const btn1 = document.querySelector("#btn1");
+      const btn2 = document.querySelector("#btn2");
+      const btn3 = document.querySelector("#btn3");
+      const btn4 = document.querySelector("#btn4");
+
+      const clicou = () => alert("Clicou!!!");
+
+      //   function clicou() {
+      //       alert("Clicou!!!") // Mesma coisa só que sem ser ArrowFunction
+      //   }
+
+      const mouseOver = () => alert("Mouse está sobre o botão!");
+      const barraDeEspaco = event => {
+        if (event.key === " ") {
+          alert("Apertou a barra de espaço!");
+        }
+      };
+      const teclaShift = evento => {
+        if (evento.key === "Shift") {
+          alert("Apertou a tecla shift");
+        }
+      };
+
+      btn1.addEventListener("click", clicou);
+      btn1.addEventListener("keypress", barraDeEspaco);
+      btn2.addEventListener("click", clicou);
+      btn3.addEventListener("keypress", barraDeEspaco);
+      btn3.addEventListener("mouseenter", mouseOver);
+      // Keypress não é disparado com teclas de modificação de comportamento - CTRL/SHIFT/ALT
+      btn4.addEventListener("keyup", teclaShift);
+    </script>
+  </body>
+</html>

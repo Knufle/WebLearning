@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      button {
+        background: #ddd;
+        padding: 8px 15px;
+      }
+
+      button.red {
+        background: #fff0f0;
+        border: 1px solid #db2323;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>JS: Manipulação de classes</h1>
+    <button id="btn1">Adiciona classe RED</button>
+    <button id="btn2" class="red">Remove classe RED</button>
+    <button id="btn3">Adiciona ou Remove a classe RED</button>
+    <button id="btn4" class="red">Tem a classe RED?</button>
+    <script>
+
+        // Guardar as referencias dos elementos
+
+        const btn1 = document.querySelector('#btn1');
+        const btn2 = document.querySelector('#btn2');
+        const btn3 = document.querySelector('#btn3');
+        const btn4 = document.querySelector('#btn4');
+
+        // btn1.onclick = function() {
+        //     this.classList.add('red');
+        // }
+
+        btn1.onclick = () => btn1.classList.add('red'); // Mesma coisa que a função de cima mas em arrow function
+
+        // THIS -> Se refere ao objeto do contexto atual (onde ele se encontra)
+        
+        // Arrow Functions não guarda escopo de THIS por padrão
+
+        btn2.onclick = () => btn2.classList.remove('red');
+
+        btn3.onclick = () => btn3.classList.toggle('red');
+
+        btn4.onclick = () => {
+            let temAClasse = btn4.classList.contains('red');
+            if (temAClasse) {
+                alert("Sim, o botão tem a classe RED!");
+            }
+            else {
+                alert("O botão não tem a classe RED!"); 
+            }
+        }
+
+    </script>
+  </body>
+</html>

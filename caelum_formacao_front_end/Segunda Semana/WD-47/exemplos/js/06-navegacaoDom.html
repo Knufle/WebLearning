@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      body {
+        padding: 60px;
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      table {
+        width: 100%;
+        border: 1px solid #ddd;
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        border-bottom: 2px solid #ddd;
+        border-right: 1px solid #ddd;
+        background: #eee;
+        text-align: center;
+        padding: 15px;
+      }
+      td {
+        background: white;
+        border-bottom-width: 1px;
+      }
+      td.editavel {
+        border-color: #ffa305;
+        color: #ffa305;
+        background: #fcf6eb;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>JS: Navegação DOM</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Email</th>
+          <th>Cidade</th>
+          <th colspan="2"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Adriana Fernandes</td>
+          <td>adriana@gmail.com</td>
+          <td>Barueri</td>
+          <td><button class="editar">Editar</button></td>
+          <td><button class="excluir">Excluir</button></td>
+        </tr>
+        <tr>
+          <td>Paula Ribeiro</td>
+          <td>paula@gmail.com</td>
+          <td>Osasco</td>
+          <td><button class="editar">Editar</button></td>
+          <td><button class="excluir">Excluir</button></td>
+        </tr>
+      </tbody>
+    </table>
+    <script>
+      const tabela = document.querySelector("table");
+      tabela.addEventListener("click", function(event) {
+        // console.log(event.target) // event.target = traz o objeto que disparou o evento dentro da tabela
+        let isBotaoExcluir = event.target.classList.contains("excluir");
+        let isBotaoEditar = event.target.classList.contains("editar");
+
+        if (isBotaoExcluir) {
+          // o botao excluir foi clicado
+          console.log("O botão excluir foi clicado!");
+          if (confirm("Tem certeza que deseja excluir essa bagaça?")) {
+            //console.log("exclui o item");
+            event.target.parentElement.parentElement.remove();
+          }
+        }
+
+        if (isBotaoEditar) {
+          // o botao editar foi clicado
+          console.log("O botão editar foi clicado!");
+          const btn = event.target;
+          let tdIrmao = btn.parentElement.previousElementSibling;
+          let isConteudoEditavel = true;
+
+          if (btn.textContent.trim() == "Editar") {
+            btn.textContent = "Salvar Edição";
+          } else {
+            btn.textContent = "Editar";
+            isConteudoEditavel = false;
+          }
+
+          while (tdIrmao != null) {
+            tdIrmao.classList.toggle("editavel");
+            tdIrmao.contentEditable = isConteudoEditavel;
+            tdIrmao = tdIrmao.previousElementSibling;
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

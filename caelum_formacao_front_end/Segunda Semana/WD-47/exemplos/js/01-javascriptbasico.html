@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      "use strict";
+
+      var a = 999;
+      if (true) {
+        var b = a;
+      }
+      console.log(b); // imprime 999
+      console.log(window.b === b);
+
+      // Variáveis com "let"
+      let c = 888;
+      if (true) {
+        let d = c;
+      }
+      //console.log('D: ', d); // ReferenceError: d não está disponível aqui
+
+      // Escopo vazio
+      {
+        let dadoMuitoGrande = [
+          { nome: "Gabriela", idade: 18 },
+          { nome: "Paulo", idade: 23 }
+        ];
+        console.log("Trabalha com os dados: ", dadoMuitoGrande); //OK
+      }
+      //console.log(dadoMuitoGrande); // ReferenceError: o dado já não está mais disponível
+
+      //loopings com var
+      for (var e = 0; e <= 5; e++) {
+        console.log("e:", e);
+      }
+      console.log(e); // 6
+
+      //loopings com let
+      for (let f = 0; f <= 5; f++) {
+        console.log("f:", f);
+      }
+      //console.log(f); // ReferenceError pois não está disponível fora do escopo
+
+      // Constantes
+      const x = 0;
+      //x = 1; // TypeError
+      const lista = [12, "Olá", "Gato", true, 75.5];
+      console.log("Lista Original: ", lista);
+      lista.push("Pernilongo");
+      console.log("lista: ", lista);
+      lista.unshift("Jhonatan");
+      console.log("lista: ", lista);
+      //lista = []; // TypeError
+
+      //   Tipos de variáveis
+
+      //   Primitivos e Complexos
+
+      //   Primitivos:
+
+      //   String
+      //   Number (FLoat/Integer)
+      //   Boolean (True/False)
+      //   null
+      //   undefined
+
+      //   Complexos:
+
+      //   Array (Object)
+      //   Object
+
+      // Objeto (Object) - tipo descritivo
+
+      const pessoa = {
+        nome: "Marcel",
+        idade: 18,
+        peso: 67.5,
+        altura: 1.87,
+        dizerOla: function() { // método do objeto
+            alert('Olá, pessoal!');
+        }
+      };
+
+      console.log(pessoa);
+      console.log(pessoa.nome);
+      pessoa.dizerOla(); // chama o metodo do objeto pessoa
+
+      pessoa.nome = "Gabriel";
+      console.log("Pessoa: ", pessoa);
+      //pessoa = "Gabriel"; // TypeError
+
+      {
+          // function declaration
+          function fool() {
+              console.log('Testando fool!');
+          }
+
+          // function expression
+          let fool2 = function() {
+              console.log('testando fool2!');
+          }
+
+          // exporta a funcao fool() para o escopo global
+          window.fool = fool;
+      }
+
+      fool(); // fool() depende, se "use sctrict" está habilitado, fool() só fica disponível dentro do escopo, se "use strict" está habilitado, fica disponível globalmente.
+      fool2(); // nao eh acessivel pq let sempre guarda escopo
+    </script>
+  </body>
+</html>

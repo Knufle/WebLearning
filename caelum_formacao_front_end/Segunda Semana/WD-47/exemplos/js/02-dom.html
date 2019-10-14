@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    
+    p {
+        padding: 15px 25px;
+        border-radius: 5px;
+        background: #f2f2f2;
+        border: 1px solid #ddd;
+    }
+
+    p.red {
+        border-color: red;
+        color: red;
+        background-color: #fff0f0;
+    }
+    
+    </style>
+</head>
+<body>
+    <h1>JS: DOM (querySelector e querySelectorAll)</h1>
+    <h2>DOM: Document, Object, Model</h2>
+    <h3>É a representação da estrutura HTML dentro do Javascript</h3>
+    <h2>BOM: Browser, Object, Model</h2>
+    <h3>É a representação da estrutura HTML dentro do Browser</h3>
+
+    <p>Parágrafo 1</p>
+    <p class="red">Parágrafo 2</p>
+    <p>Parágrafo 3</p>
+    <p>Parágrafo 4</p>
+    <p class="red">Parágrafo 5</p>
+    <p>Parágrafo 6</p>
+    <p class="red">Parágrafo 7</p>
+    <p>Parágrafo 8</p>
+    <p>Parágrafo 9</p>
+    <p id="p10"Parágrafo 10</p>
+    <script>
+        
+        // querySelector(): retorna sempre o primeiro ELEMENTO que atende ao seletor
+        // document.querySelector('#p10').innerHTML = "Modificado!";
+        // document.querySelector('#p10').style.fontStyle = 'italic';
+        const p10 = document.querySelector("#p10");
+        p10.innerHTML = "<b>Modificado</b>";
+        p10.style.fontStyle = 'italic';
+
+        // Manipulação de conteúdo de TAGS existem 3 comandos
+        // innerHTML = considera o conteúdo sempre como HTML
+
+        // innerText | textContent = considera todo o conteúdo sempre como texto, mesmo códigos HTML.
+
+        // querySelectorAll retorna uma lista (NODE LIST) de elementos que foram encontrados na estrutura do HTML que atenderam ao seletor.
+        const pRed = document.querySelectorAll('p.red');
+        pRed.innerHTML = "JS modificou isso aqui...";
+        console.log(pRed); // Retorna lista de elementos (nós) do documento HTML
+
+        for (let indice = 0; indice < pRed.length; indice++) {
+            pRed[indice].innerHTML = "JS modificou isso aqui...";
+        }
+
+        // forEach() é um looping especializado para percorrer listas (Arrays, NodeLists, etc.)
+        // o forEach() recebe sempre uma função com 2 parametros:
+        // 1) o elemento da lista, neste caso o "p"
+        // 2) o indice do elemento na lista (0, 1, 2, etc...) OPCIONAL
+        pRed.forEach(function(item, indice) {
+            item.innerHTML = "JS alterou isso aqui com o forEach";
+        });
+
+        // ES6 - Arrow Functions
+        pRed.forEach(paragrafo => paragrafo.innerHTML = "Arrow function alterou aqui...");
+
+    </script>
+</body>
+</html>
