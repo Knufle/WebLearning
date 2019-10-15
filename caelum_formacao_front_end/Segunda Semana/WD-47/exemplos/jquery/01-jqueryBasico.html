@@ -1,0 +1,48 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    
+    p {
+        padding: 15px 25px;
+        border-radius: 5px;
+        background: #f2f2f2;
+        border: 1px solid #ddd;
+    }
+
+    p.red {
+        border-color: red;
+        color: red;
+        background-color: #fff0f0;
+    }
+    
+    </style>
+</head>
+<body>
+    <h1>JQuery: DOM</h1>
+
+    <p>Parágrafo 1</p>
+    <p class="red">Parágrafo 2</p>
+    <p>Parágrafo 3</p>
+    <p>Parágrafo 4</p>
+    <p class="red">Parágrafo 5</p>
+    <p>Parágrafo 6</p>
+    <p class="red">Parágrafo 7</p>
+    <p>Parágrafo 8</p>
+    <p>Parágrafo 9</p>
+    <p id="p10">Parágrafo 10</p>
+    <script src="jquery.js"></script>
+    <script>
+        
+        // $() = equivale a querySelector() e querySelectorAll()
+        $('#p10').text('Modifiquei a parada via jQuery!');
+        $('p.red').text('Modificando todos os .red de uma vez!');
+
+    </script>
+</body>
+</html>

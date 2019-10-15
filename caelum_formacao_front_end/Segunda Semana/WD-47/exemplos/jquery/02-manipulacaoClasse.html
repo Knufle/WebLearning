@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      button {
+        background: #ddd;
+        padding: 8px 15px;
+      }
+
+      button.red {
+        background: #fff0f0;
+        border: 1px solid #db2323;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>JQuery: Manipulação de classes</h1>
+    <button id="btn1">Adiciona classe RED</button>
+    <button id="btn2" class="red">Remove classe RED</button>
+    <button id="btn3">Adiciona ou Remove a classe RED</button>
+    <button id="btn4" class="red">Tem a classe RED?</button>
+    <script src="jquery.js"></script>
+    <script>
+
+        //Guardar as referencias dos elementos
+        $('#btn1').click(() => $('#btn1').addClass('red'));
+        $('#btn2').click(() => $('#btn2').removeClass('red'));
+        $('#btn3').click(() => $('#btn3').toggleClass('red'));
+        $('#btn4').click(() => {
+            if ($('#btn4').hasClass('red')) {
+                alert('Sim, o botão tem a classe RED');
+            }
+        })
+        
+    </script>
+  </body>
+</html>

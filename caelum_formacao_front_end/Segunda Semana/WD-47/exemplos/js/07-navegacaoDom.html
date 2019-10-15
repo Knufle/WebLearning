@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+      body {
+        padding: 16px;
+      }
+      .acordeoes {
+        width: 400px;
+      }
+      .acordeao {
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 30px;
+      }
+      .acordeao > h4 {
+        cursor: pointer;
+        background: #eee;
+        margin: 0;
+        padding: 10px 20px;
+        border-bottom: 1px solid #ccc;
+      }
+      .acordeao > .conteudo {
+        display: none;
+      }
+      .acordeao > .conteudo.abrir {
+        display: block;
+      }
+      .acordeao > .conteudo > div {
+        padding: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>JS: Navegação DOM</h1>
+    <div class="acordeoes">
+      <div class="acordeao">
+        <h4>Acordeao 1</h4>
+        <div class="conteudo">
+          <div>
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+            Necessitatibus doloremque laudantium dolorum omnis, magnam nobis
+            assumenda. Perspiciatis pariatur blanditiis deleniti excepturi
+            similique maiores, cum deserunt soluta repellat amet explicabo
+            voluptate?
+          </div>
+        </div>
+      </div>
+      <div class="acordeao">
+        <h4>Acordeao 2</h4>
+        <div class="conteudo">
+          <div>
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+            Necessitatibus doloremque laudantium dolorum omnis, magnam nobis
+            assumenda. Perspiciatis pariatur blanditiis deleniti excepturi
+            similique maiores, cum deserunt soluta repellat amet explicabo
+            voluptate?
+          </div>
+        </div>
+      </div>
+      <div class="acordeao">
+        <h4>Acordeao 3</h4>
+        <div class="conteudo">
+          <div>
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+            Necessitatibus doloremque laudantium dolorum omnis, magnam nobis
+            assumenda. Perspiciatis pariatur blanditiis deleniti excepturi
+            similique maiores, cum deserunt soluta repellat amet explicabo
+            voluptate?
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      const acordeoes = document.querySelector(".acordeoes");
+      acordeoes.onclick = event => {
+        if (event.target.tagName === "H4") {
+          event.target.nextElementSibling.classList.toggle("abrir");
+          //console.log(acordeoes.childNodes); // retorna todo tipo de nó, não apenas elementos
+          console.log(acordeoes.children);
+          Array.from(acordeoes.children).forEach(acordeao => {
+            //Array.from serve para transformar uma lista de um tipo em um array, nesse caso para usar o forEach
+            if (event.target.parentElement !== acordeao) {
+              acordeao.lastElementChild.classList.remove("abrir");
+            }
+          });
+        }
+      };
+    </script>
+  </body>
+</html>
