@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Buscar dados do CEP informado:</h1>
+    CEP: <br />
+    <input type="text" id="campoCep" max-length="8" />
+    <button id="btnBuscar">
+      Buscar Informações
+    </button>
+    <div id="conteudoDadosEndereco">
+      <!-- mostrar aqui dados do CEP buscado (Endereço, Birro, Cidade e Estado) -->
+    </div>
+    <script>
+      // buscar os dados do CEP em: https://viacep.com.br/ws/CEP_BUSCADO/json
+
+      const btn = document.querySelector("#btnBuscar");
+      const campo = document.querySelector("#campoCep");
+      const divConteudo = document.querySelector("#conteudoDadosEndereco");
+
+      btn.onclick = async () => {
+        let cep = campo.value.trim();
+        if (cep === "" || isNaN(cep)) {
+          alert("Por favor, preencha o campo com valor válido!");
+        } else {
+          try {
+            btn.disabled = true;
+            btn.textContent = "Carregando dados...";
+            const respostaServidor = await fetch(
+              `https://viacep.com.br/ws/${cep}/json`
+            );
+            const dadosEndereco = await respostaServidor.json();
+            if (dadosEndereco.erro === true) {
+              alert("CEP inválido");
+            } else {
+              divConteudo.innerHTML = `
+                Endereco: ${dadosEndereco.logradouro} <br>
+                Bairro: ${dadosEndereco.bairro} <br>
+                Cidade: ${dadosEndereco.localidade} <br>
+                Estado: ${dadosEndereco.uf}
+            `;
+            }
+          } catch (erro) {
+            alert("Erro ao buscar informações!");
+            console.log(erro);
+          } finally {
+            btn.disabled = false;
+            btn.textContent = "Buscar Informações";
+          }
+        }
+      };
+    </script>
+  </body>
+</html>

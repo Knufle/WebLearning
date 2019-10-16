@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>JS: AJAX (Asynchronous JavaScript and XML)</h1>
+    <button id="btnCarregar">
+      Carregar Conteúdo
+    </button>
+    <div id="conteudoCarregado">
+      <!-- O conteudo carregado pelo AJAX será carregado aqui -->
+    </div>
+    <script>
+    
+        const btnCarregar = document.querySelector('#btnCarregar');
+        const divConteudo = document.querySelector('#conteudoCarregado');
+        btnCarregar.addEventListener('click', () => {
+            // alert('Carregando...');
+            const xhr = new XMLHttpRequest();
+            // 1º parametro = METODO HTTP (POST, GET, PUT, DELETE)
+            // 2º parametro = URL
+            // 3º parametro (opcional) = se a requisicao sera sincrona ou assincrona (boolean)
+            xhr.open('GET', 'http://jhonatanjacinto.com/teste.php');
+            xhr.send();
+            divConteudo.textContent = "Carregando..."
+            btnCarregar.disabled = true;
+            xhr.addEventListener('load', () => {
+                
+                divConteudo.innerHTML = xhr.response;
+                btnCarregar.disabled = false;
+                // alert(xhr.response);
+            });
+            xhr.addEventListener('error', () => {
+                alert('Não foi possível carregar as informações!');
+            });
+        });
+
+    </script>
+  </body>
+</html>
