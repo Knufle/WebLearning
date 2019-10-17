@@ -1,7 +1,3 @@
-const moduloSync = (function() {
-
-    'use strict';
-
     // INSTRUÇÃO 1
 
     const getItens = async () => {
@@ -35,8 +31,4 @@ const moduloSync = (function() {
 
     // getItens(); // INSTRUÇÃO 8
 
-    return {
-        sincronizar : sync
-    }
-
-})();
+    export const sincronizar = sync;

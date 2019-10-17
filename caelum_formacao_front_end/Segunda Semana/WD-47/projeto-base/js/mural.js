@@ -5,8 +5,9 @@ const moduloMural = (function() {
   mural.addEventListener("change", function(event) {
     let isRadio = event.target.classList.contains("opcoesDoCartao-radioTipo");
     if (isRadio) {
-        const cartao = event.target.parentElement.parentElement;
-        cartao.style.backgroundColor = event.target.value;
+      const cartao = event.target.parentElement.parentElement;
+      cartao.style.backgroundColor = event.target.value;
+      moduloSync.sincronizar();
     }
   });
   mural.addEventListener("keypress", function() {
@@ -21,11 +22,25 @@ const moduloMural = (function() {
       "opcoesDoCartao-remove"
     );
     if (isBotaoExcluir) {
-        const cartao = event.target.parentElement.parentElement;
+      const cartao = event.target.parentElement.parentElement;
       cartao.classList.add("cartao--some");
       cartao.addEventListener("transitionend", () => cartao.remove());
     }
   });
+
+  function getCartoesMural() {
+    const cartoes = mural.querySelectorAll(".cartao");
+    console.log(cartoes); // NodeList de HTML, mas queremos um array
+    console.log(Array.from(cartoes)); // Array HTML
+    const listaCartoes = Array.from(cartoes).map(cartao => {
+      return {
+        conteudo: cartao.querySelector(".cartao-conteudo").textContent,
+        cor: cartao.style.backgroundColor
+      };
+    });
+    console.log(listaCartoes); // Agora sim um Array de HTML
+    return listaCartoes;
+  }
 
   function adicionarCartaoNoMural(objConteudo) {
     numeroDoCartao++;
@@ -62,13 +77,37 @@ const moduloMural = (function() {
          </div>
          <p class="cartao-conteudo" contenteditable tabindex="0">${conteudo}</p>
            `;
-           mural.append(cartao);
-           cartao.addEventListener('focusin', () => cartao.classList.add('cartao--focado'));
-           cartao.addEventListener('focusout', () => cartao.classList.remove('cartao--focado'));
+    mural.append(cartao);
+    cartao.addEventListener("focusin", () =>
+      cartao.classList.add("cartao--focado")
+    );
+    cartao.addEventListener("focusout", () =>
+      cartao.classList.remove("cartao--focado")
+    );
   }
 
+  // carregar os cartões salvos no servidor
+  $.ajax({
+    type: "GET",
+    url: "https://ceep.herokuapp.com/cartoes/carregar",
+    data: { usuario: "knuflebr@gmail.com" },
+    dataType: "jsonp"
+  })
+
+    .done(dadosJson => {
+      console.log(dadosJson);
+      dadosJson.cartoes.forEach(cartao => {
+        adicionarCartaoNoMural(cartao);
+      });
+    })
+    .fail(erro => {
+      alert("Erro ao carregar os dados dos cartões!");
+      console.log(erro);
+    });
+
   return {
-      // funcao ou propriedade publica: funcao ou propriedade privada
-      adicionarCartao: adicionarCartaoNoMural
-  }
+    // funcao ou propriedade publica: funcao ou propriedade privada
+    getCartoes: getCartoesMural,
+    adicionarCartao: adicionarCartaoNoMural
+  };
 })();

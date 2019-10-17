@@ -35,7 +35,7 @@
               `https://viacep.com.br/ws/${cep}/json`
             );
             const dadosEndereco = await respostaServidor.json();
-            if (dadosEndereco.erro === true) {
+            if (dadosEndereco.erro) {
               alert("CEP inválido");
             } else {
               divConteudo.innerHTML = `
