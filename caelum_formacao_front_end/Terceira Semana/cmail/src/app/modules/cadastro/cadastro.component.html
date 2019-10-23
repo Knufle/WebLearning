@@ -4,87 +4,222 @@
   <cmail-header></cmail-header>
   <main class="mdl-layout__content">
     <div class="page-content">
+      <p>{{ mensagem }}</p>
       <div class="mdl-grid">
         <form (ngSubmit)="handleCadastro()" [formGroup]="formCadastro">
           <cmail-form-group
             labelDoCampo="Nome:"
             idCampo="nome"
-            [validacao]="formCadastro.get('nome').invalid && formCadastro.get('nome').touched"
+            [validacao]="
+              formCadastro.get('nome').invalid &&
+              formCadastro.get('nome').touched
+            "
           >
-            <input formControlName="nome" cmailFormField required type="text" name="nome" />
-            <span *ngIf="formCadastro.get('nome').getError('minlength')" class="mdl-textfield__error"
-              >O nome precisa ter pelo menos {{formCadastro.get('nome').getError('minlength').requiredLength}} caracteres</span
+            <input
+              formControlName="nome"
+              cmailFormField
+              required
+              type="text"
+              name="nome"
+            />
+            <span
+              *ngIf="formCadastro.get('nome').getError('minlength')"
+              class="mdl-textfield__error"
+              >O nome precisa ter pelo menos
+              {{
+                formCadastro.get("nome").getError("minlength").requiredLength
+              }}
+              caracteres</span
             >
-            <span *ngIf="formCadastro.get('nome').getError('maxlength')" class="mdl-textfield__error"
+            <span
+              *ngIf="formCadastro.get('nome').getError('maxlength')"
+              class="mdl-textfield__error"
               >O nome pode ter no máximo 50 caracteres</span
             >
-            <span *ngIf="formCadastro.get('nome').getError('required')" class="mdl-textfield__error"
+            <span
+              *ngIf="formCadastro.get('nome').getError('required')"
+              class="mdl-textfield__error"
               >O nome é obrigatório</span
             >
-            <span *ngIf="formCadastro.get('nome').getError('pattern') && !formCadastro.get('nome').getError('minlength')" class="mdl-textfield__error"
+            <span
+              *ngIf="
+                formCadastro.get('nome').getError('pattern') &&
+                !formCadastro.get('nome').getError('minlength')
+              "
+              class="mdl-textfield__error"
               >O nome deve conter apenas letras</span
             >
           </cmail-form-group>
           <cmail-form-group
             labelDoCampo="Usuário:"
             idCampo="username"
-            [validacao]="formCadastro.get('usuario').invalid && formCadastro.get('usuario').touched"
+            [validacao]="
+              formCadastro.get('usuario').invalid &&
+              formCadastro.get('usuario').touched
+            "
           >
-            <input formControlName="usuario" cmailFormField required type="text" name="username" />
-            <span *ngIf="formCadastro.get('usuario').getError('required')" class="mdl-textfield__error"
+            <input
+              formControlName="usuario"
+              cmailFormField
+              required
+              type="text"
+              name="username"
+            />
+            <span
+              *ngIf="formCadastro.get('usuario').getError('required')"
+              class="mdl-textfield__error"
               >Informar um username é obrigatório!</span
             >
-            <span *ngIf="formCadastro.get('usuario').getError('minlength')" class="mdl-textfield__error"
-              >O username deve ter no mínimo {{formCadastro.get('usuario').getError('minlength').requiredLength}} caracteres</span
+            <span
+              *ngIf="formCadastro.get('usuario').getError('minlength')"
+              class="mdl-textfield__error"
+              >O username deve ter no mínimo
+              {{
+                formCadastro.get("usuario").getError("minlength").requiredLength
+              }}
+              caracteres</span
             >
-            <span *ngIf="formCadastro.get('usuario').getError('maxlength')" class="mdl-textfield__error"
-              >O username pode ter no maximo {{formCadastro.get('usuario').getError('maxlength').requiredLength}} caracteres</span
+            <span
+              *ngIf="formCadastro.get('usuario').getError('maxlength')"
+              class="mdl-textfield__error"
+              >O username pode ter no maximo
+              {{
+                formCadastro.get("usuario").getError("maxlength").requiredLength
+              }}
+              caracteres</span
             >
-            <span *ngIf="formCadastro.get('usuario').getError('pattern') && !formCadastro.get('usuario').getError('minlength')" class="mdl-textfield__error"
+            <span
+              *ngIf="
+                formCadastro.get('usuario').getError('pattern') &&
+                !formCadastro.get('usuario').getError('minlength')
+              "
+              class="mdl-textfield__error"
               >O nome deve conter apenas letras e numeros</span
             >
           </cmail-form-group>
-          <cmail-form-group labelDoCampo="Senha" idCampo="senha"
-          [validacao]="formCadastro.get('senha').touched && formCadastro.get('senha').invalid">
-            <input formControlName="senha" cmailFormField required type="password" name="senha">
-            <span *ngIf="formCadastro.get('senha').getError('required')" class="mdl-textfield__error">
+          <cmail-form-group
+            labelDoCampo="Senha"
+            idCampo="senha"
+            [validacao]="
+              formCadastro.get('senha').touched &&
+              formCadastro.get('senha').invalid
+            "
+          >
+            <input
+              formControlName="senha"
+              cmailFormField
+              required
+              type="password"
+              name="senha"
+            />
+            <span
+              *ngIf="formCadastro.get('senha').getError('required')"
+              class="mdl-textfield__error"
+            >
               Informar uma senha é obrigatório!
             </span>
-            <span *ngIf="formCadastro.get('senha').getError('minlength')" class="mdl-textfield__error">
+            <span
+              *ngIf="formCadastro.get('senha').getError('minlength')"
+              class="mdl-textfield__error"
+            >
               A senha deve conter no mínimo
-              {{formCadastro.get('senha').getError('minlength').requiredLength}}
+              {{
+                formCadastro.get("senha").getError("minlength").requiredLength
+              }}
               caracteres
             </span>
           </cmail-form-group>
-
-          <cmail-form-group labelDoCampo="Avatar" idCampo="avatar"
-          [validacao]="formCadastro.get('avatar').touched && formCadastro.get('avatar').invalid">
-            <input formControlName="avatar" cmailFormField required type="text" name="avatar">
-            <span *ngIf="formCadastro.get('avatar').getError('required')" class="mdl-textfield__error">Informar um avatar é obrigatório!</span>
+          <cmail-form-group
+            labelDoCampo="Avatar"
+            idCampo="avatar"
+            [validacao]="
+              (formCadastro.get('avatar').touched || formCadastro.get('avatar').dirty) &&
+              formCadastro.get('avatar').invalid
+            "
+          >
+            <input
+              formControlName="avatar"
+              cmailFormField
+              required
+              type="text"
+              name="avatar"
+            />
+            <span
+              *ngIf="formCadastro.get('avatar').getError('required')"
+              class="mdl-textfield__error"
+              >Informar um avatar é obrigatório!</span
+            >
+            <span
+              *ngIf="formCadastro.get('avatar').status === 'PENDING'"
+              class="mdl-textfield__error mdl-textfield__checking"
+              >Verificando...</span
+            >
+            <span
+              *ngIf="formCadastro.get('avatar').getError('urlInvalida')"
+              class="mdl-textfield__error"
+              >URL Inválida D:</span
+            >
+            <span
+              *ngIf="formCadastro.get('avatar').status === 'VALID'"
+              class="mdl-textfield__error mdl-textfield__valid"
+              >URL Válida :D</span
+            >
           </cmail-form-group>
-
-          <cmail-form-group labelDoCampo="Telefone" idCampo="telefone"
-            [validacao]="formCadastro.get('telefone').touched && formCadastro.get('telefone').invalid">
+          <cmail-form-group
+            labelDoCampo="Telefone"
+            idCampo="telefone"
+            [validacao]="
+              formCadastro.get('telefone').touched &&
+              formCadastro.get('telefone').invalid
+            "
+          >
             <input
               minlength="8"
               maxlength="9"
-              formControlName="telefone" cmailFormField required type="text" name="telefone">
+              formControlName="telefone"
+              cmailFormField
+              required
+              type="text"
+              name="telefone"
+            />
 
-            <span *ngIf="formCadastro.get('telefone').getError('required')" class="mdl-textfield__error">
+            <span
+              *ngIf="formCadastro.get('telefone').getError('required')"
+              class="mdl-textfield__error"
+            >
               Informar um telefone é obrigatório!
             </span>
-            <span *ngIf="formCadastro.get('telefone').getError('minlength')" class="mdl-textfield__error">
+            <span
+              *ngIf="formCadastro.get('telefone').getError('minlength')"
+              class="mdl-textfield__error"
+            >
               O telefone deve conter no mínimo
-              {{formCadastro.get('telefone').getError('minlength').requiredLength}}
+              {{
+                formCadastro.get("telefone").getError("minlength")
+                  .requiredLength
+              }}
               caracteres
             </span>
-            <span *ngIf="formCadastro.get('telefone').getError('maxlength')" class="mdl-textfield__error">
-              O nome deve conter no max {{formCadastro.get('telefone').getError('maxlength').requiredLength}} caracteres
+            <span
+              *ngIf="formCadastro.get('telefone').getError('maxlength')"
+              class="mdl-textfield__error"
+            >
+              O nome deve conter no max
+              {{
+                formCadastro.get("telefone").getError("maxlength")
+                  .requiredLength
+              }}
+              caracteres
             </span>
-            <span *ngIf="formCadastro.get('telefone').getError('pattern') && !formCadastro.get('telefone').getError('minlength')" class="mdl-textfield__error">
+            <span
+              *ngIf="
+                formCadastro.get('telefone').getError('pattern') &&
+                !formCadastro.get('telefone').getError('minlength')
+              "
+              class="mdl-textfield__error"
+            >
               O telefone deve conter apenas numeros!
             </span>
-
           </cmail-form-group>
           <!-- <cmail-form-group
             labelDoCampo="Senha:"
