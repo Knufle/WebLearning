@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
+import { AuthGuard } from './guards/auth.guard';
 
 const appRoutes: Routes = [
   {
@@ -7,7 +8,8 @@ const appRoutes: Routes = [
     loadChildren: () =>
       import("./modules/caixa-de-entrada/caixa-de-entrada.module").then(
         m => m.CaixaDeEntradaModule
-      )
+      ),
+    canActivate: [AuthGuard]
   },
   {
     path: "login",
@@ -25,6 +27,7 @@ const appRoutes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(appRoutes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [AuthGuard]
 })
 export class AppRoutingModule {}

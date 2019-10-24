@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { HttpClient } from "@angular/common/http";
 import { Router } from '@angular/router';
 import { LoginService } from 'src/app/services/login.service';
 
@@ -15,13 +14,14 @@ export class LoginComponent implements OnInit {
   private senhaValidators = Validators.compose([Validators.required]);
 
   formLogin = new FormGroup({
-    email: new FormControl("fasfsafsafsad@cmail.com.br", this.emailValidators),
+    email: new FormControl("teste@cmail.com.br", this.emailValidators),
     senha: new FormControl("123", this.senhaValidators)
   });
 
   mensagemErro = "";
 
-  constructor(private http: HttpClient, private roteador: Router, private service: LoginService) {}
+  constructor(private roteador: Router, 
+              private service: LoginService) {}
 
   ngOnInit() {}
 
@@ -31,16 +31,15 @@ export class LoginComponent implements OnInit {
       return;
     }
     
-    const loginDTO = {
-      email: this.formLogin.get("email").value,
-      password: this.formLogin.get("senha").value
-    };
+    // const loginDTO = {
+    //   email: this.formLogin.get("email").value,
+    //   password: this.formLogin.get("senha").value
+    // };
 
-    
-
-    this.service.autenticar(this.formLogin.value).subscribe(
-      (response: any) => {
-        localStorage.setItem('cmail-token', response.token);
+    this.service
+    .autenticar(this.formLogin.value)
+    .subscribe(
+      () => {
         this.roteador.navigate(['inbox']);
       },
       erro => {

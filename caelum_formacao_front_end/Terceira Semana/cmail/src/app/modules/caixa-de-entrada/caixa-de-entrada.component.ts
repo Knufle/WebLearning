@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
-import { Email } from "src/app/models/email";
+import { EmailForm } from "src/app/models/email";
 import { NgForm } from "@angular/forms";
+import { EmailService } from "src/app/services/email.service";
 
 @Component({
   selector: "cmail-caixa-de-entrada",
@@ -8,21 +9,24 @@ import { NgForm } from "@angular/forms";
   styleUrls: ["./caixa-de-entrada.component.scss"]
 })
 export class CaixaDeEntradaComponent implements OnInit {
-  constructor() {}
+  constructor(private servico: EmailService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
 
-  title = "cmail";
+    this.listarEmails();
+  }
+
+  // title = "cmail";
 
   listaEmails = [];
 
-  private _isNewEmailFormOpen = false;
-
-  email: Email = {
+  email: EmailForm = {
     destinatario: "",
     assunto: "",
     conteudo: ""
   };
+
+  private _isNewEmailFormOpen = false;
 
   get isNewEmailFormOpen() {
     return this._isNewEmailFormOpen;
@@ -32,9 +36,18 @@ export class CaixaDeEntradaComponent implements OnInit {
     this._isNewEmailFormOpen = !this.isNewEmailFormOpen;
   }
 
-  getDestinatario(eventoInput) {
-    this.email.destinatario = eventoInput.target.value;
+  listarEmails() {
+    this.servico.listar().subscribe(
+      (resposta: any[]) => {
+        console.log(resposta);
+        this.listaEmails = resposta;
+      }
+    )
   }
+
+  // getDestinatario(eventoInput) {
+  //   this.email.destinatario = eventoInput.target.value;
+  // }
 
   handleNewEmail(formEmail: NgForm) {
     if (formEmail.invalid) {
@@ -42,20 +55,41 @@ export class CaixaDeEntradaComponent implements OnInit {
       return;
     }
 
-    let novoEmail: Email = {
-      assunto: this.email.assunto,
-      destinatario: this.email.destinatario,
-      conteudo: this.email.conteudo
-    };
+    this.servico.enviar(this.email).subscribe(
+      (resposta) => {
+        console.log(resposta);
 
-    this.listaEmails.push(novoEmail);
+        this.listarEmails();
 
-    // let email = {
-    //   destinatario: "",
-    //   assunto: "",
-    //   conteudo: ""
+        this.email = {
+          destinatario: "",
+          assunto: "",
+          conteudo: ""
+        };
+
+        formEmail.reset();
+      },
+      erro => console.log(erro)
+    );
+
+    // let novoEmail: Email = {
+    //   assunto: this.email.assunto,
+    //   destinatario: this.email.destinatario,
+    //   conteudo: this.email.conteudo
     // };
 
     // let email = new Email();
+  }
+
+  apagarEmail(emailId: string) {
+    if(confirm('Quer apagar mesmo?')) {
+      this.servico.deletar(emailId).subscribe(
+        () => {
+          this.listarEmails();
+        },
+        erro => console.log(erro)
+      );
+    }
+    
   }
 }

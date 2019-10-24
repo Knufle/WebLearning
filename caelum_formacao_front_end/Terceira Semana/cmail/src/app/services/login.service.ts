@@ -1,11 +1,11 @@
 import { HttpClient } from "@angular/common/http";
 import { environment } from "src/environments/environment";
-import { map } from 'rxjs/operators';
-import { Injectable } from '@angular/core';
+import { map } from "rxjs/operators";
+import { Injectable } from "@angular/core";
 
 @Injectable()
 export class LoginService {
-  private url = environment.apiURL+'login';
+  private url = environment.apiURL + "login";
 
   constructor(private http: HttpClient) {}
 
@@ -15,15 +15,11 @@ export class LoginService {
       password: senha
     };
 
-    this.http
-    .post(this.url, loginDTO)
-    .pipe(
-        map(
-            (resposta:any) => {
-                localStorage.setItem('cmail-token', resposta.token)
-                return 'Logado com sucesso ;D'
-            }
-        )
-    )
+    return this.http.post(this.url, loginDTO).pipe(
+      map((resposta: any) => {
+        localStorage.setItem("cmail-token", resposta.token);
+        return "Logado com sucesso ;D";
+      })
+    );
   }
 }

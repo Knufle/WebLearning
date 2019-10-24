@@ -8,6 +8,8 @@ import {
 import { UserInputDTO } from "src/app/models/dto/user-input";
 import { UserOutputDTO } from "src/app/models/dto/user-output";
 import { map, catchError } from "rxjs/operators";
+import { Router } from "@angular/router";
+import { UserService } from "src/app/services/user.service";
 
 @Component({
   selector: "cmail-cadastro",
@@ -55,7 +57,11 @@ export class CadastroComponent implements OnInit {
 
   mensagem = "";
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private roteador: Router,
+    private service: UserService,
+    private http: HttpClient
+  ) {}
 
   ngOnInit() {}
 
@@ -63,20 +69,18 @@ export class CadastroComponent implements OnInit {
     const validationError = {
       urlInvalida: true
     };
-    return this.http
-      .head(control.value, { observe: "response" })
-      .pipe(
-        map(response => {
-          if (response.ok) {
-            return null;
-          }
-          //console.log(response);
-          return validationError;
-        }),
-        catchError(() => {
-          return [validationError];
-        })
-      );
+    return this.http.head(control.value, { observe: "response" }).pipe(
+      map(response => {
+        if (response.ok) {
+          return null;
+        }
+        //console.log(response);
+        return validationError;
+      }),
+      catchError(() => {
+        return [validationError];
+      })
+    );
     //const url = control.value;
     //console.log(control.value);
     //return new Promise((reject, resolve)=> resolve)
@@ -88,11 +92,13 @@ export class CadastroComponent implements OnInit {
       return;
     }
 
-    const user = new UserInputDTO(this.formCadastro.value);
+    // const user = new UserInputDTO(this.formCadastro.value);
 
-    this.http.post("http://localhost:3200/users", user).subscribe(
-      (response: UserOutputDTO) => {
-        console.log(response);
+    this.service.cadastrar(this.formCadastro.value).subscribe(
+      response => {
+        //console.log(response);
+        // localStorage.setItem('cmail-token', response.token);
+        // this.roteador.navigate(['users']);
         this.mensagem = `${response.email} feito com sucesso!`;
       },
       (erro: HttpErrorResponse) => {
