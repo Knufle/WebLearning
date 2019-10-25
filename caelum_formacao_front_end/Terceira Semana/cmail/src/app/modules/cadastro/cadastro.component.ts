@@ -10,6 +10,7 @@ import { UserOutputDTO } from "src/app/models/dto/user-output";
 import { map, catchError } from "rxjs/operators";
 import { Router } from "@angular/router";
 import { UserService } from "src/app/services/user.service";
+import { PageDataService } from 'src/app/services/pagedata.service';
 
 @Component({
   selector: "cmail-cadastro",
@@ -60,10 +61,13 @@ export class CadastroComponent implements OnInit {
   constructor(
     private roteador: Router,
     private service: UserService,
-    private http: HttpClient
+    private http: HttpClient,
+    private pageDataService: PageDataService
   ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.pageDataService.defineTitulo('Cadastro - CMail');
+  }
 
   validaImagem(control: FormControl) {
     const validationError = {

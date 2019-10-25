@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { Router } from '@angular/router';
 import { LoginService } from 'src/app/services/login.service';
+import { PageDataService } from 'src/app/services/pagedata.service';
 
 @Component({
   selector: "cmail-login",
@@ -21,9 +22,12 @@ export class LoginComponent implements OnInit {
   mensagemErro = "";
 
   constructor(private roteador: Router, 
-              private service: LoginService) {}
+              private service: LoginService,
+              private pageDataService: PageDataService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.pageDataService.defineTitulo('Login - CMail');
+  }
 
   handleLogin() {
     if (this.formLogin.invalid) {

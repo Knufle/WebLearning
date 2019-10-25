@@ -1,7 +1,8 @@
 import { Component, OnInit } from "@angular/core";
-import { EmailForm } from "src/app/models/email";
+import { EmailForm, Email } from "src/app/models/email";
 import { NgForm } from "@angular/forms";
 import { EmailService } from "src/app/services/email.service";
+import { PageDataService } from "src/app/services/pagedata.service";
 
 @Component({
   selector: "cmail-caixa-de-entrada",
@@ -9,16 +10,24 @@ import { EmailService } from "src/app/services/email.service";
   styleUrls: ["./caixa-de-entrada.component.scss"]
 })
 export class CaixaDeEntradaComponent implements OnInit {
-  constructor(private servico: EmailService) {}
+  constructor(
+    private servico: EmailService,
+    private pageDataService: PageDataService
+  ) {}
 
   ngOnInit() {
+    this.servico.listar().subscribe(lista => {
+      this.listaEmails = lista;
+    });
+
+    this.pageDataService.defineTitulo("Caixa de entrada - CMail");
 
     this.listarEmails();
   }
 
   // title = "cmail";
 
-  listaEmails = [];
+  listaEmails: Email[] = [];
 
   email: EmailForm = {
     destinatario: "",
@@ -27,6 +36,8 @@ export class CaixaDeEntradaComponent implements OnInit {
   };
 
   private _isNewEmailFormOpen = false;
+
+  termoFiltro = "";
 
   get isNewEmailFormOpen() {
     return this._isNewEmailFormOpen;
@@ -37,12 +48,10 @@ export class CaixaDeEntradaComponent implements OnInit {
   }
 
   listarEmails() {
-    this.servico.listar().subscribe(
-      (resposta: any[]) => {
-        console.log(resposta);
-        this.listaEmails = resposta;
-      }
-    )
+    this.servico.listar().subscribe((resposta: any[]) => {
+      console.log(resposta);
+      this.listaEmails = resposta;
+    });
   }
 
   // getDestinatario(eventoInput) {
@@ -56,7 +65,7 @@ export class CaixaDeEntradaComponent implements OnInit {
     }
 
     this.servico.enviar(this.email).subscribe(
-      (resposta) => {
+      resposta => {
         console.log(resposta);
 
         this.listarEmails();
@@ -82,7 +91,7 @@ export class CaixaDeEntradaComponent implements OnInit {
   }
 
   apagarEmail(emailId: string) {
-    if(confirm('Quer apagar mesmo?')) {
+    if (confirm("Quer apagar mesmo?")) {
       this.servico.deletar(emailId).subscribe(
         () => {
           this.listarEmails();
@@ -90,6 +99,17 @@ export class CaixaDeEntradaComponent implements OnInit {
         erro => console.log(erro)
       );
     }
-    
+  }
+  filtrarEmails() {
+    //console.log(termoFiltro);
+    return this.listaEmails.filter(email => {
+      if (
+        email.destinatario.toLowerCase().includes(this.termoFiltro.toLowerCase()) ||
+        email.assunto.toLowerCase().includes(this.termoFiltro.toLowerCase()) ||
+        email.conteudo.toLowerCase().includes(this.termoFiltro.toLowerCase())
+      ) {
+        return email;
+      }
+    });
   }
 }

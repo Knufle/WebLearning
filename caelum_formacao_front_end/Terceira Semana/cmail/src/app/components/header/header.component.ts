@@ -1,4 +1,5 @@
-import { Component } from "@angular/core";
+import { Component, Output, EventEmitter } from "@angular/core";
+import { PageDataService } from "src/app/services/pagedata.service";
 
 @Component({
   selector: "cmail-header",
@@ -7,8 +8,21 @@ import { Component } from "@angular/core";
 })
 export class HeaderComponent {
   isMenuOpen = false;
+  tituloDaPagina = "CMail";
+  @Output() filtro = new EventEmitter<string>();
+
+  constructor(private pageService: PageDataService) {
+    this.pageService.titulo.subscribe(
+      novoTitulo => (this.tituloDaPagina = novoTitulo)
+    );
+  }
 
   mostrarMenu() {
     this.isMenuOpen = !this.isMenuOpen;
+  }
+
+  getTermoDeFiltro(evento) {
+    //console.log(evento.target.value);
+    this.filtro.emit(evento.target.value);
   }
 }
